@@ -1,6 +1,9 @@
+mod render;
+
 use crate::EventLoopMsg;
 use crossbeam_channel::unbounded;
 use notify::{RecommendedWatcher, RecursiveMode, Watcher};
+use wgpu::TextureComponentType;
 use winit::{event::WindowEvent, window::Window};
 
 pub enum ToGameClient {}
@@ -8,6 +11,12 @@ pub enum FromGameClient {}
 
 pub struct Client {
     window: Window,
+    instance: wgpu::Instance,
+    size: winit::dpi::PhysicalSize<u32>,
+    surface: wgpu::Surface,
+    adapter: wgpu::Adapter,
+    device: wgpu::Device,
+    queue: wgpu::Queue,
 
     sender_to_client: crossbeam_channel::Sender<ToGameClient>,
     receiver_to_client: crossbeam_channel::Receiver<ToGameClient>,
@@ -18,10 +27,12 @@ pub struct Client {
     watcher: notify::RecommendedWatcher,
 
     frame_count: i32,
+
+    render_pipeline: wgpu::RenderPipeline,
 }
 
 impl Client {
-    pub fn new(
+    pub async fn new(
         window: Window,
         sender_to_client: crossbeam_channel::Sender<ToGameClient>,
         receiver_to_client: crossbeam_channel::Receiver<ToGameClient>,
@@ -30,6 +41,31 @@ impl Client {
     ) -> Client {
         println!("Client init");
         window.set_title("Huskarl");
+
+        let size = window.inner_size();
+        let instance = wgpu::Instance::new(wgpu::BackendBit::PRIMARY);
+        let surface = unsafe { instance.create_surface(&window) };
+        let adapter = instance
+            .request_adapter(&wgpu::RequestAdapterOptions {
+                power_preference: wgpu::PowerPreference::default(),
+                // Request an adapter which can render to our surface
+                compatible_surface: Some(&surface),
+            })
+            .await
+            .expect("Failed to find an appropiate adapter");
+
+        // Create the logical device and command queue
+        let (device, queue) = adapter
+            .request_device(
+                &wgpu::DeviceDescriptor {
+                    features: wgpu::Features::empty(),
+                    limits: wgpu::Limits::default(),
+                    shader_validation: true,
+                },
+                None,
+            )
+            .await
+            .expect("Failed to create device");
 
         let (receiver_notify, watcher) = {
             let (_tx, rx) = unbounded();
@@ -49,8 +85,50 @@ impl Client {
             (rx, watcher)
         };
 
+        // Load the shaders from disk
+        let vs_module = device.create_shader_module(wgpu::include_spirv!("shader.vert.spv"));
+        let fs_module = device.create_shader_module(wgpu::include_spirv!("shader.frag.spv"));
+
+        let pipeline_layout = device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
+            label: None,
+            bind_group_layouts: &[],
+            push_constant_ranges: &[],
+        });
+
+        let render_pipeline = device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
+            label: None,
+            layout: Some(&pipeline_layout),
+            vertex_stage: wgpu::ProgrammableStageDescriptor {
+                module: &vs_module,
+                entry_point: "main",
+            },
+            fragment_stage: Some(wgpu::ProgrammableStageDescriptor {
+                module: &fs_module,
+                entry_point: "main",
+            }),
+            // Use the default rasterizer state: no culling, no depth bias
+            rasterization_state: None,
+            primitive_topology: wgpu::PrimitiveTopology::TriangleList,
+            color_states: &[wgpu::TextureFormat::Bgra8UnormSrgb.into()],
+            depth_stencil_state: None,
+            vertex_state: wgpu::VertexStateDescriptor {
+                index_format: wgpu::IndexFormat::Uint16,
+                vertex_buffers: &[],
+            },
+            sample_count: 1,
+            sample_mask: !0,
+            alpha_to_coverage_enabled: false,
+        });
+
         Client {
             window,
+            instance,
+            size,
+            surface,
+            adapter,
+            device,
+            queue,
+            render_pipeline,
             sender_to_client,
             receiver_to_client,
             sender_to_event_loop,
@@ -103,12 +181,5 @@ impl Client {
             }
             _ => {}
         }
-    }
-
-    pub fn render(&mut self) {
-        if self.frame_count == 1 {
-            self.window.set_maximized(false);
-        }
-        self.frame_count += 1;
     }
 }

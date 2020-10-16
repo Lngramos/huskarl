@@ -3,6 +3,7 @@ mod game;
 extern crate crossbeam_channel;
 
 use crossbeam_channel::unbounded;
+use futures::executor::block_on;
 
 use winit::{
     event::Event,
@@ -14,7 +15,7 @@ pub enum EventLoopMsg {
     Stop,
 }
 
-fn main() {
+async fn async_main() {
     let (sender_from_client_to_manager, _receiver_from_client_to_manager) =
         unbounded::<game::FromGameClient>();
     let (sender_to_client, receiver_to_client) = unbounded::<game::ToGameClient>();
@@ -30,7 +31,8 @@ fn main() {
         receiver_to_client,
         sender_to_event_loop,
         sender_from_client_to_manager,
-    );
+    )
+    .await;
 
     event_loop.run(move |event, _, control_flow| match event {
         Event::WindowEvent { .. } => {
@@ -48,4 +50,8 @@ fn main() {
         },
         _ => {}
     });
+}
+
+fn main() {
+    block_on(async_main());
 }

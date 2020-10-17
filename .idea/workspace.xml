@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b41216e-19ad-456e-b7f6-c985dc849ed7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/game/render.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/luis.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/client.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/mod.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
     </list>
@@ -28,15 +30,26 @@
     <option name="directoryName" value="01wvv789" />
   </component>
   <component name="ProjectId" id="1iyYUUyORzx3vg6rC0XSe7Zup3X" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/game" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/game" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command" nameIsGenerated="true">
@@ -57,7 +70,7 @@
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
     <option name="version" value="2" />
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="false" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="2b41216e-19ad-456e-b7f6-c985dc849ed7" name="Default Changelist" comment="" />
@@ -68,6 +81,9 @@
     </task>
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="774" y="391" width="1084" height="710" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602881483487">
       <screen x="72" y="27" width="2488" height="1413" />
@@ -77,25 +93,25 @@
       <screen x="72" y="27" width="2488" height="1413" />
     </state>
     <state x="1099" y="504" width="424" height="491" key="FileChooserDialogImpl/72.27.2488.1413/2560.0.2560.1440@72.27.2488.1413" timestamp="1602881476014" />
-    <state width="1198" height="384" key="GridCell.Tab.0.bottom" timestamp="1602885037113">
+    <state width="1198" height="384" key="GridCell.Tab.0.bottom" timestamp="1602953948081">
       <screen x="72" y="27" width="2488" height="1413" />
     </state>
-    <state width="1198" height="384" key="GridCell.Tab.0.bottom/72.27.2488.1413/2560.0.2560.1440@72.27.2488.1413" timestamp="1602885037113" />
-    <state width="1198" height="384" key="GridCell.Tab.0.center" timestamp="1602885037113">
+    <state width="1198" height="384" key="GridCell.Tab.0.bottom/72.27.2488.1413/2560.0.2560.1440@72.27.2488.1413" timestamp="1602953948081" />
+    <state width="1198" height="384" key="GridCell.Tab.0.center" timestamp="1602953948081">
       <screen x="72" y="27" width="2488" height="1413" />
     </state>
-    <state width="1198" height="384" key="GridCell.Tab.0.center/72.27.2488.1413/2560.0.2560.1440@72.27.2488.1413" timestamp="1602885037113" />
-    <state width="1198" height="384" key="GridCell.Tab.0.left" timestamp="1602885037113">
+    <state width="1198" height="384" key="GridCell.Tab.0.center/72.27.2488.1413/2560.0.2560.1440@72.27.2488.1413" timestamp="1602953948081" />
+    <state width="1198" height="384" key="GridCell.Tab.0.left" timestamp="1602953948081">
       <screen x="72" y="27" width="2488" height="1413" />
     </state>
-    <state width="1198" height="384" key="GridCell.Tab.0.left/72.27.2488.1413/2560.0.2560.1440@72.27.2488.1413" timestamp="1602885037113" />
-    <state width="1198" height="384" key="GridCell.Tab.0.right" timestamp="1602885037113">
+    <state width="1198" height="384" key="GridCell.Tab.0.left/72.27.2488.1413/2560.0.2560.1440@72.27.2488.1413" timestamp="1602953948081" />
+    <state width="1198" height="384" key="GridCell.Tab.0.right" timestamp="1602953948081">
       <screen x="72" y="27" width="2488" height="1413" />
     </state>
-    <state width="1198" height="384" key="GridCell.Tab.0.right/72.27.2488.1413/2560.0.2560.1440@72.27.2488.1413" timestamp="1602885037113" />
-    <state x="805" y="368" width="1022" height="737" key="SettingsEditor" timestamp="1602882344597">
+    <state width="1198" height="384" key="GridCell.Tab.0.right/72.27.2488.1413/2560.0.2560.1440@72.27.2488.1413" timestamp="1602953948081" />
+    <state x="805" y="368" width="1022" height="737" key="SettingsEditor" timestamp="1602937077156">
       <screen x="72" y="27" width="2488" height="1413" />
     </state>
-    <state x="805" y="368" width="1022" height="737" key="SettingsEditor/72.27.2488.1413/2560.0.2560.1440@72.27.2488.1413" timestamp="1602882344597" />
+    <state x="805" y="368" width="1022" height="737" key="SettingsEditor/72.27.2488.1413/2560.0.2560.1440@72.27.2488.1413" timestamp="1602937077156" />
   </component>
 </project>

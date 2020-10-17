@@ -5,6 +5,7 @@ extern crate crossbeam_channel;
 use crossbeam_channel::unbounded;
 use futures::executor::block_on;
 
+use game::FromGameClient;
 use winit::{
     event::Event,
     event_loop::{ControlFlow, EventLoop},
@@ -17,7 +18,7 @@ pub enum EventLoopMsg {
 
 async fn async_main() {
     let (sender_from_client_to_manager, _receiver_from_client_to_manager) =
-        unbounded::<game::FromGameClient>();
+        unbounded::<FromGameClient>();
     let (sender_to_client, receiver_to_client) = unbounded::<game::ToGameClient>();
     let _sender_to_client_from_manager = sender_to_client.clone();
 
